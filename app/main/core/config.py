@@ -17,7 +17,7 @@ class ConfigClass(BaseSettings):
     SECRET_KEY: str = get_secret("SECRET_KEY", 'H5zMm7XtCKNsab88JQCLkaY4d8hExSjghGyaJDy12M')
     ALGORITHM: str = get_secret("ALGORITHM", 'HS256')
 
-    ADMIN_KEY: str = get_secret("ADMIN_KEY", "BiblioCloud2025")
+    ADMIN_KEY: str = get_secret("ADMIN_KEY", "stock_2025")
     ADMIN_USERNAME: str = get_secret("ADMIN_USERNAME", "esmtools")
     ADMIN_PASSWORD: str = get_secret("ADMIN_PASSWORD", "6xP66EMBbr")
 
@@ -28,7 +28,7 @@ class ConfigClass(BaseSettings):
     EMAIL_RESET_TOKEN_EXPIRE_HOURS: int = get_secret("EMAIL_RESET_TOKEN_EXPIRE_HOURS", 8)
 
     # SQLALCHEMY_DATABASE_URL: str = get_secret("SQLALCHEMY_DATABASE_URL", 'postgresql://base_api_v2:Lcy96xP66EMBbrrr@dbe.comii.de:6020/sanctions_db_dev')
-    SQLALCHEMY_DATABASE_URL: str = get_secret("SQLALCHEMY_DATABASE_URL", 'postgresql://postgres:2002@localhost:5432/library_management_system')
+    SQLALCHEMY_DATABASE_URL: str = get_secret("SQLALCHEMY_DATABASE_URL", 'postgresql://postgres:2002@localhost:5432/stock_management_system')
 
     SQLALCHEMY_POOL_SIZE: int = 100
     SQLALCHEMY_MAX_OVERFLOW: int = 0
@@ -48,11 +48,20 @@ class ConfigClass(BaseSettings):
     UPLOADED_FILE_DEST: str = get_secret("UPLOADED_FILE_DEST", "uploads")
 
 
+    MAILTRAP_USERNAME :str = get_secret("MAILTRAP_USERNAME", "987982cf606b48")
+    MAILTRAP_PASSWORD :str = get_secret("MAILTRAP_PASSWORD", "c08cbffad8f6c7")
+    # MAILTRAP_HOST = "smtp.mailtrap.io"
+    # MAILTRAP_PORT = 587
+
+
+
+
+
     PREFERRED_LANGUAGE: str = get_secret("PREFERRED_LANGUAGE", 'fr')
 
     API_V1_STR: str = get_secret("API_V1_STR", "/api/v1")
 
-    PROJECT_NAME: str = get_secret("PROJECT_NAME", "LIBRARY MANAGEMENT API")
+    PROJECT_NAME: str = get_secret("PROJECT_NAME", "STOCK MANAGEMENT API")
     PROJECT_VERSION: str = get_secret("PROJECT_VERSION", "0.0.1")
 
     # Redis config

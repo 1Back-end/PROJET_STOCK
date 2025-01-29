@@ -3,6 +3,7 @@ import os
 from random import randint, choice
 import string
 import random
+import bcrypt
 from passlib.context import CryptContext
 from fastapi.security import OAuth2PasswordBearer
 from typing import Any, Optional, Union
@@ -10,16 +11,32 @@ from sqlalchemy.orm import Session
 from datetime import datetime, timedelta,timezone
 from app.main import models,crud
 import jwt
+from passlib.context import CryptContext
 # from jose import JWTError, jwt
 
 from .config import Config
+ALGORITHM = "HS256"
 
+
+
+
+# Création d'un contexte pour bcrypt (ou tout autre algorithme de hachage)
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+def password_hash(password: str) -> str:
+    return pwd_context.hash(password)
 
+def generate_password(length: int = 12) -> str:
+    """Génère un mot de passe sécurisé aléatoire."""
+    # Définir les caractères autorisés pour le mot de passe
+    characters = string.ascii_letters + string.digits + string.punctuation
+    # Générer un mot de passe aléatoire de la longueur spécifiée
+    password = ''.join(random.choice(characters) for _ in range(length))
+    return password
 
-ALGORITHM = "HS256"
+def password_hash(password: str) -> str:
+    return pwd_context.hash(password)
+
 
 
 def validate_email(email):
@@ -102,9 +119,15 @@ def decode_access_token(token: str):
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     return pwd_context.verify(plain_password, hashed_password)
 
-
 def get_password_hash(password: str) -> str:
-    return pwd_context.hash(password)
+    salt = bcrypt.gensalt()
+
+    # Hashing the password
+    return (bcrypt.hashpw(password.encode('utf-8'), salt)).decode('utf-8')
+
+
+# def get_password_hash(password: str) -> str:
+#     return pwd_context.hash(password)
 
 
 def generate_password_reset_token(email: str) -> str:

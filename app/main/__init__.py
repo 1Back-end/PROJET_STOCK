@@ -27,8 +27,9 @@ security = HTTPBasic()
 protocol = HTTPBearer(auto_error=False, scheme_name="Bearer")
 
 description = '''
-    This is the Library Management API, designed to manage book borrowing, returns, catalog management, and user accounts. It streamlines library operations and ensures efficient resource tracking.
+    This is the Stock Management API, designed to handle inventory tracking, stock updates, and order management. It ensures efficient inventory control, optimized stock levels, and streamlined operations for businesses.
 '''
+
 
 
 app = FastAPI(

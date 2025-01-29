@@ -41,9 +41,7 @@ target_metadata = Base.metadata
 
 
 def get_url():
-    # return get_secret("SQLALCHEMY_DATABASE_URL", 'postgresql://base_api_v2:Lcy96xP66EMBbrrr@dbe.comii.de:6020/sanctions_db_dev')
-    return get_secret("SQLALCHEMY_DATABASE_URL", 'postgresql://postgres:2002@localhost:5432/library_management_system')
-
+    return get_secret("SQLALCHEMY_DATABASE_URL",'postgresql://postgres:2002@localhost:5432/stock_management_system')
 
 
 def run_migrations_offline():

@@ -1,6 +1,10 @@
 translation = {
-    "bad-api-key": "The API key you provided is invalid",
-    "send-message-text": "Your validation code for your Epura account is as follows :\n"
+    "email-already-exists": "Email already exists",
+    "phone-number-already-exists" : "Phone number already exists",
+    "user-created-successfully" : "User created successfully",
+    "invalid-credentials" : "Invalid credentials",
+    "auth-login-failed" : "Authentification failed",
+    "user-not-activated" : "User not activated"
 
 }
 

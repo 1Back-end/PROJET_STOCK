@@ -11,6 +11,8 @@ from app.main.core.config import Config
 from app.main.core import dependencies
 from app.main.models.db.base_class import Base
 from app.main.utils import logger
+import subprocess
+import logging
 
 router = APIRouter(prefix="/migrations", tags=["migrations"])
 
@@ -23,8 +25,8 @@ def check_user_access_key(admin_key: schemas.AdminKey):
 
 @router.post("/create-database-tables", response_model=schemas.Msg, status_code=201)
 async def create_database_tables(
-        db: Session = Depends(dependencies.get_db),
-        admin_key: schemas.AdminKey = Body(...)
+    db: Session = Depends(dependencies.get_db),
+    admin_key: schemas.AdminKey = Body(...)
 ) -> dict[str, str]:
     """
     Create database structure (tables)
@@ -37,7 +39,7 @@ async def create_database_tables(
             __tablename__ = "alembic_version"
             version_num: str = Column(String(32), primary_key=True, unique=True)
 
-        db.query(AlembicVersion).first().delete()
+        db.query(AlembicVersion).delete()
         db.commit()
     except Exception as e:
         pass
@@ -61,7 +63,7 @@ async def create_database_tables(
         # Get the environment system
         if platform.system() == 'Windows':
 
-            os.system('set PYTHONPATH=. && .\\.venv\Scripts\python.exe -m alembic revision --autogenerate')
+            os.system('set PYTHONPATH=. && .\\venv\Scripts\python.exe -m alembic revision --autogenerate')
 
         else:
             os.system('PYTHONPATH=. alembic revision --autogenerate')
@@ -69,7 +71,7 @@ async def create_database_tables(
         # Get the environment system
         if platform.system() == 'Windows':
 
-            os.system('set PYTHONPATH=. && .\\.venv\Scripts\python.exe -m alembic upgrade head')
+            os.system('set PYTHONPATH=. && .\\venv\Scripts\python.exe -m alembic upgrade head')
 
         else:
             os.system('PYTHONPATH=. alembic upgrade head')
@@ -85,3 +87,4 @@ async def create_database_tables(
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+    
