@@ -22,7 +22,7 @@ class User(Base):
     username = Column(String, unique=True, index=True)
     email = Column(String, unique=True, index=True)
     phone_number = Column(String, unique=True, index=True)
-    password_hash = Column(String)
+    password_hash = Column(String,nullable=False)
     status = Column(String, default=UserStatus.ACTIVED)
     role = Column(String, default=UserRole.ADMIN)
     created_at = Column(DateTime, default=datetime.utcnow)

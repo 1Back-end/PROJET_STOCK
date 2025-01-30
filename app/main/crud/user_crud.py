@@ -1,9 +1,10 @@
 import math
+import bcrypt
 from sqlalchemy import or_
 import re
 from typing import List, Optional, Union
 import uuid
-from app.main.core.security import password_hash,verify_password
+from app.main.core.security import get_password_hash,verify_password
 from sqlalchemy.orm import Session
 from app.main.crud.base import CRUDBase
 from app.main import models,schemas
@@ -38,22 +39,26 @@ class CRUDUser(CRUDBase[models.User, schemas.UserCreate, schemas.UserUpdate]):
     
     @classmethod
     def create_user(cls, db: Session, *, obj_in: schemas.UserCreate):
+            # Assurez-vous que le mot de passe en clair est utilisé ici
+    # Hasher le mot de passe
+        hashed_password = get_password_hash(obj_in.password_hash)
         new_user = models.User(
             uuid=str(uuid.uuid4()),  # Génère un UUID unique pour chaque utilisateur
             username=obj_in.username,
             email=obj_in.email,
             phone_number=obj_in.phone_number,
-            password_hash=password_hash(obj_in.password_hash),  # Utilisation du mot de passe haché
+            password_hash=hashed_password,
             status=models.UserStatus.ACTIVED,
             role=models.UserRole.ADMIN
         )
 
+        # Ajout de l'utilisateur à la base de données
         db.add(new_user)
         db.commit()
         db.refresh(new_user)
-        print(f"Utilisateur créé : {new_user.username}")
-        print(f"Mot de passe haché : {new_user.password_hash}")
+
         return new_user
+    
     
       
 user = CRUDUser(models.User)
