@@ -1,6 +1,6 @@
 import os
 from pydantic_settings import BaseSettings
-from typing import Optional,Dict,Any
+from typing import ClassVar, Optional,Dict,Any
 from pydantic import EmailStr, validator
 
 # from pydantic import Base EmailStr,validator
@@ -50,8 +50,8 @@ class ConfigClass(BaseSettings):
 
     MAILTRAP_USERNAME :str = get_secret("MAILTRAP_USERNAME", "987982cf606b48")
     MAILTRAP_PASSWORD :str = get_secret("MAILTRAP_PASSWORD", "c08cbffad8f6c7")
-    # MAILTRAP_HOST = "smtp.mailtrap.io"
-    # MAILTRAP_PORT = 587
+    MAILTRAP_HOST: ClassVar[str] = "smtp.mailtrap.io"  # Utilisation de ClassVar
+    MAILTRAP_PORT: ClassVar[int] = 587  # Utilisation de ClassVar
 
 
 

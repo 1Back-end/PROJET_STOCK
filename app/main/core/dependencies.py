@@ -40,7 +40,7 @@ class TokenRequired(HTTPBearer):
             if models.BlacklistToken.check_blacklist(db, credentials.credentials):
                 raise HTTPException(status_code=403, detail=__("dependencies-token-invalid"))
 
-            current_user = crud.get_by_uuid(db=db, uuid=token_data["sub"])
+            current_user = crud.user.get_user_by_uuid(db=db, uuid=token_data["sub"])
             if not current_user:
                 raise HTTPException(status_code=403, detail=__("dependencies-token-invalid"))
 

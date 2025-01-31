@@ -1,5 +1,6 @@
 import math
 import bcrypt
+from fastapi import HTTPException
 from sqlalchemy import or_
 import re
 from typing import List, Optional, Union
@@ -22,18 +23,21 @@ class CRUDUser(CRUDBase[models.User,schemas.UserBase,schemas.UserCreate]):
         return db.query(models.User).filter(models.User.email == email,models.User.is_deleted==False).first()
     
     @classmethod
-    def authenticate(cls, db: Session, *, email: str, password: str) -> Optional[models.User]:
-        user = cls.get_user_by_email(db, email=email)
-        if not user:
+    def authenticate(cls, db: Session, *, email: str, password: str) -> Union[models.User, None]:
+        db_obj: models.User = db.query(models.User).filter(models.User.email == email).first()
+        if not db_obj:
             return None
-        if not verify_password(password, user.password_hash):
+        if not verify_password(password, db_obj.password_hash):
             return None
-        return user
+        return db_obj
     
     @classmethod
     def get_user_by_phone_number(cls, db:Session,*, phone_number:str):
         return db.query(models.User).filter(models.User.phone_number == phone_number, models.User.is_deleted==False).first()
     
+    @classmethod
+    def get_user_by_uuid(cls,db:Session,uuid:str):
+        return db.query(models.User).filter(models.User.uuid == uuid, models.User.is_deleted==False).first()    
 
     @classmethod
     def create_user(cls, db: Session, *, user_in: schemas.UserCreate) -> models.User:
@@ -45,6 +49,7 @@ class CRUDUser(CRUDBase[models.User,schemas.UserBase,schemas.UserCreate]):
             email=user_in.email,
             phone_number=user_in.phone_number,
             password_hash=hashed_password,
+            role = models.UserRole.ADMIN
         )
         db.add(new_user)
         db.commit()
@@ -52,4 +57,6 @@ class CRUDUser(CRUDBase[models.User,schemas.UserBase,schemas.UserCreate]):
         return new_user
     
 
+    
+        
 user = CRUDUser(models.user)

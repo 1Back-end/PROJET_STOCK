@@ -3,3 +3,5 @@ from .admin_key import AdminKey
 from .msg import Msg, BoolStatus, DataDisplay
 from .base import DataList
 from .user import *
+from .category import *
+from .products import *

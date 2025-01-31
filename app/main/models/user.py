@@ -6,6 +6,11 @@ from enum import Enum
 import uuid
 
 
+class UserRole(str, Enum):
+    ADMIN = "ADMIN",
+    USER = "USER"
+
+
 
 class User(Base):
     __tablename__ = 'users'
@@ -17,8 +22,14 @@ class User(Base):
     password_hash = Column(String, nullable=False)
     is_active = Column(Boolean, default=False)
     is_deleted = Column(Boolean, default=False)
+    role = Column(String, default=UserRole.USER)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    reset_password_code = Column(String, nullable=True)
+    reset_code_sent_at = Column(DateTime, nullable=True)
+
+    
 
 
     def __repr__(self):
