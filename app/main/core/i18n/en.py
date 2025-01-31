@@ -4,7 +4,8 @@ translation = {
     "user-created-successfully" : "User created successfully",
     "invalid-credentials" : "Invalid credentials",
     "auth-login-failed" : "Authentification failed",
-    "user-not-activated" : "User not activated"
+    "user-not-activated" : "User not activated",
+    "user-registered": "Your account has been successfully created"
 
 }
 

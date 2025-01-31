@@ -9,13 +9,22 @@ from typing import Union, Any
 from fastapi import HTTPException, status
 from .config import Config
 from app.main.core.i18n import __
+from passlib.context import CryptContext
+from fastapi.security import OAuth2PasswordBearer
 
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 ALGORITHM = "HS256"
 
 
 def validate_email(email):
     email_regex = re.compile(r"[^@]+@[^@]+\.[^@]+")
     return email_regex.match(email)
+
+def get_password_hash(password: str) -> str:
+    return pwd_context.hash(password)
 
 
 def generate_code(length=6, end=True):
@@ -63,11 +72,6 @@ def decode_access_token(token: str):
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     return bcrypt.checkpw(plain_password.encode("utf-8"), hashed_password.encode("utf-8"))
 
-
-def get_password_hash(password: str) -> str:
-    salt = bcrypt.gensalt()
-    # Hashing the password
-    return (bcrypt.hashpw(password.encode('utf-8'), salt)).decode('utf-8')
 
 
 def check_pass(password: str):

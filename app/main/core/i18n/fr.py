@@ -4,6 +4,7 @@ translation = {
     "user-created-successfully" : "Utilisateur créé avec succès",
     "invalid-credentials" : "Informations d'identification invalides",
     "auth-login-failed" : "Authentification échouée",
-    "user-not-activated" : "Utilisateur non activé"
+    "user-not-activated" : "Utilisateur non activé",
+    "user-registered":"Votre compte a été créé avec succès"
 }
 
