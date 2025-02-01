@@ -49,7 +49,7 @@ class CRUDUser(CRUDBase[models.User,schemas.UserBase,schemas.UserCreate]):
             email=user_in.email,
             phone_number=user_in.phone_number,
             password_hash=hashed_password,
-            role = models.UserRole.ADMIN
+            role = models.UserRole.USER
         )
         db.add(new_user)
         db.commit()

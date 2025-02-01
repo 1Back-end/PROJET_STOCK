@@ -1,5 +1,5 @@
 
-from .user_crud import *
+from .user_crud import user
 from .base import *
-from .category_crud import *
-from .products_crud import *
+from .category_crud import category
+from .products_crud import product

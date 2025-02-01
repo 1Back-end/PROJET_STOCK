@@ -24,6 +24,9 @@ class Product(Base):
 
     added_by = Column(String,ForeignKey("users.uuid"),nullable=False)
     created_by = relationship("User",foreign_keys=[added_by])
+    
+    avatar_uuid: str = Column(String, ForeignKey('storages.uuid'), nullable=True)
+    avatar = relationship("Storage", foreign_keys=[avatar_uuid], uselist=False)
 
     def __repr__(self):
         return f'<Product(uuid="{self.uuid}", name="{self.name}")>'

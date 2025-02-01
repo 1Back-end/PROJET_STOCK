@@ -18,6 +18,12 @@ translation = {
     "category-not-found." : "Catégorie introuvable.",
     "category-updated-successfully." :"Catégorie mise à jour avec succès.",
     "category-deleted-successfully." : "Catégorie supprimée avec succès.",
+    "product-not-found" : "Produit Introuvable",
+    "product-deleted-successfully." :"Produit supprimée avec succès.",
+    "avatar-not-found." :"image non trouvé",
+    "product-not-found": "Produit Introuvable",
+    "account-not-active" : "Compte non actif",
+    "account-deleted" : "Compte supprimé",
     
 }
 

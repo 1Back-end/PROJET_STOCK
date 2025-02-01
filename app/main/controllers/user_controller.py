@@ -17,8 +17,14 @@ router = APIRouter(prefix="", tags=["users"])
 async def register(
     db: Session = Depends(get_db),
     *,
-    user_in: schemas.UserCreate
+    user_in: schemas.UserCreate,
+    current_user: models.User = Depends(TokenRequired(roles =["ADMIN"]))
+
 ):
+    if current_user.is_active == False:
+        raise HTTPException(status_code=403, detail=__("account-not-active"))
+    if current_user.is_deleted == True:
+        raise HTTPException(status_code=403, detail=__("account-deleted"))
     exist_phone = crud.user.get_user_by_phone_number(db,phone_number=user_in.phone_number)
     if exist_phone:
         raise HTTPException(status_code=400, detail=__(key="phone-number-already-exists"))

@@ -18,7 +18,12 @@ translation = {
     "category-created-successfully." :"Category created successfully.",
     "category-not-found." : "Category not found",
     "category-updated-successfully." :"Category updated successfully.",
-    "category-deleted-successfully." :"Category deleted successfully."
-
+    "category-deleted-successfully." :"Category deleted successfully.",
+    "product-not-found" : "Product not found",
+    "product-deleted-successfully." : "Product deleted successfully",
+    "avatar-not-found." :"image not found",
+    "product-not-found" : "Product not found",
+    "account-not-active" : "Account is not active",
+    "account-deleted" : "Account is deleted",
 }
 

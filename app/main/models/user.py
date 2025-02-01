@@ -20,7 +20,7 @@ class User(Base):
     email = Column(String, unique=True, nullable=False)
     phone_number = Column(String, unique=True, nullable=False)
     password_hash = Column(String, nullable=False)
-    is_active = Column(Boolean, default=False)
+    is_active = Column(Boolean, default=True)
     is_deleted = Column(Boolean, default=False)
     role = Column(String, default=UserRole.USER)
     created_at = Column(DateTime, default=datetime.utcnow)
