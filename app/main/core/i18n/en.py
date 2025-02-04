@@ -25,5 +25,16 @@ translation = {
     "product-not-found" : "Product not found",
     "account-not-active" : "Account is not active",
     "account-deleted" : "Account is deleted",
-}
+    "customer-created-successfully.":"Customer created successfully",
+    "customer-not-found" : "Customer not found",
+    "customer-update-successfully" : "Customer update successfully",
+    "customer-deleted-successfully" : "Customer deleted successfully",
+    "product-out-of-stock" : "Product out of stock",
+    "sales-created-successfully" : "Sales created successfully",
+    "sales-not-found" : "Sales not found",
+    "sales-updated-successfully" : "Sales updated successfully",
+    "sales-date" : "Sales date",
+    "total-price":"Total price",
+    "sales-deleted-successfully" : "Sales deleted successfully",
+} 
 

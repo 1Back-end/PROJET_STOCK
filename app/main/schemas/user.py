@@ -7,9 +7,11 @@ from app.main.models.user import UserRole
 
 
 class UserSlim(BaseModel):
+    uuid:str
     first_name:str
     last_name:str
     role:UserRole
+    created_at:datetime
     model_config = ConfigDict(from_attributes=True)
 
 class UserBase(BaseModel):
@@ -22,6 +24,14 @@ class UserBase(BaseModel):
 
 class UserCreate(UserBase):
     pass
+
+class UserUpdate(BaseModel):
+    firt_name:Optional[str]
+    last_name:Optional[str]
+    email:Optional[str]
+    phone_number:Optional[str]
+    avatar_uuid:Optional[str]
+
 
 class UserResponse(UserBase):
     uuid:str
@@ -48,3 +58,11 @@ class UserAuthentication(BaseModel):
 class UserLogin(BaseModel):
     email: EmailStr
     password: str
+
+class UserDetail(BaseModel):
+    first_name:str
+    last_name:str
+    email:EmailStr
+    phone_number:str
+    # role:UserRole
+    model_config = ConfigDict(from_attributes=True)

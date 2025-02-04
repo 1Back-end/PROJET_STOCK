@@ -28,7 +28,7 @@ class CategoryResponse(BaseModel):
     description: str
     created_at: datetime
     updated_at: Optional[datetime] = None
-    # created_by:UserSlim
+    created_by:UserSlim
     model_config = ConfigDict(from_attributes=True)
 
 class CategoryResponseList(BaseModel):

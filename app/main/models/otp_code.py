@@ -15,3 +15,6 @@ class OTPCode(Base):
 
     def is_valid(self):
         return not self.is_used and self.expires_at > datetime.utcnow()
+    
+    def __repr__(self):
+        return f'<OTPCode {self.uuid}>'

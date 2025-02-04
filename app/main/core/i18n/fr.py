@@ -24,6 +24,16 @@ translation = {
     "product-not-found": "Produit Introuvable",
     "account-not-active" : "Compte non actif",
     "account-deleted" : "Compte supprimé",
-    
+    "customer-created-successfully." :"Client crée avec succès",
+    "customer-not-found" : "Client Introuvable",
+    "customer-update-successfully" : "Client mise à jour avec succès",
+    "customer-deleted-successfully" : "Client supprimé avec succès",
+    "product-out-of-stock" : "Produit en rupture de stock",
+    "sales-created-successfully" : "Vente créé avec succès",
+    "sales-not-found" : "Vente introuvable",
+    "sales-updated-successfully" : "Vente modifiée avec succès",
+    "sales-date" : "Date vente",
+    "total-price" : "Prix Total",
+    "sales-deleted-successfully" : "Vente supprimée avec succès",
 }
 

@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
+*{
+  font-family: "Rubik", serif;
+}
+
+.btn-primary{
+  background-color: #1F4283;
+    color: white;
+    font-size: 14px;
+    padding: 15px 20px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    text-transform: uppercase;
+    border-radius: 10px;
+    font-weight: 600;
+}
+.btn-add{
+  background-color: #1F4283;
+    color: white;
+    font-size: 14px;
+    padding: 10px 15px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    text-transform: uppercase;
+    border-radius: 10px;
+    font-weight: 600;
+
+}
+.text-brand{
+  color: #1F4283;
+  font-weight: 600;
+  font-style: italic;
+  font-size: 2.5rem;
+
+}
+.btn-xs {
+  padding: 0.25rem 0.5rem;
+  font-size: 12px;
+  line-height: 1.5;
+  font-family: "Rubik", system-ui;
+}
+
+h1,h2,h3{
+  font-size: 20px !important;
+  text-transform: uppercase !important;
+  color: #1F4283;
+  font-weight: 700;
+  line-height: 1.3;
+  
+}
+h5{
+  font-size: 18px !important;
+  text-transform: uppercase !important;
+  color: #1F4283;
+  font-weight: 700;
+  line-height: 1.3;
+  
+}
+p{
+  font-size: 14px !important;
+  line-height: 1.5;
+}
+textarea.form-control{
+  resize: none !important;;
+}
+.btn-xs {
+  padding: 0.25rem 0.5rem;
+  font-size: 12px;
+  line-height: 1.5;
+  font-family: "Rubik", system-ui;
+}
+.chart-container {
+  font-family: "Rubik", system-ui;
+}
+.card-box, .da-card {
+  background-color: #fff;
+  border-radius: 10px;
+  -webkit-box-shadow: 0 0 28px rgba(0,0,0,.08);
+  box-shadow: 0 0 28px rgba(0,0,0,.08);
+}
+.bg-color{
+  background-color: #1F4283 !important;
+}
+input[type="text"], 
+input[type="email"],
+input[type="tel"] {
+  font-size: 14px;
+  color: #1F4283;
+  padding: 15px;
+}
+
+select {
+  font-size: 12px;
+  cursor: pointer;
+}
+
+select option {
+  font-size: 12px;
+}
+textarea.form-control-lg {
+  min-height: calc(1.5em + 1rem + calc(var(--bs-border-width) * 2));
+  font-size: 12px;
+}
+.card-box, .da-card {
+  background-color: #fff;
+  border-radius: 10px;
+  -webkit-box-shadow: 0 0 28px rgba(0,0,0,.08);
+  box-shadow: 0 0 28px rgba(0,0,0,.08);
+}

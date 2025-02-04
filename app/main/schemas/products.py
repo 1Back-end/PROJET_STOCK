@@ -5,6 +5,15 @@ from datetime import datetime,date
 
 from app.main.schemas.category import CategoryBase
 from app.main.schemas.file import FileSlim1
+from app.main.schemas.user import UserSlim
+
+class ProductSlim(BaseModel):
+    uuid: str
+    name: str
+    quantity:int
+    price: float
+    created_at:datetime
+    model_config = ConfigDict(from_attributes=True)
 
 
 class ProductBase(BaseModel):
@@ -43,6 +52,7 @@ class ProductResponse(BaseModel):
     expiration_date:date
     created_at:datetime
     updated_at:datetime
+    created_by:UserSlim
 
     model_config = ConfigDict(from_attributes=True)
 

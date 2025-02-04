@@ -11,7 +11,7 @@ from app.main.core.security import create_access_token, generate_code, get_passw
 from app.main.core.config import Config
 from app.main.core import mail
 
-router = APIRouter(prefix="", tags=["users"])
+router = APIRouter(prefix="", tags=["authentication"])
 
 @router.post("/register", response_model=schemas.Msg)
 async def register(
@@ -51,7 +51,7 @@ async def login(
     if not user:
         raise HTTPException(status_code=400, detail=__("auth-login-failed"))
     
-    if user.is_active==True:
+    if user.is_active==False:
         raise HTTPException(status_code=400, detail=__("account-not-active"))
     if user.is_deleted==True:
         raise HTTPException(status_code=400, detail=__("account-deleted"))
@@ -126,3 +126,14 @@ def reset_password(
     db.refresh(user)
 
     return schemas.Msg(message=__(key="password-update-success"))
+
+
+@router.get("/me", summary="Get current user", response_model=schemas.UserDetail)
+def get_current_user(
+        current_user: models.User = Depends(TokenRequired()),
+        db: Session = Depends(get_db),
+) -> models.User:
+    """
+    Get current user
+    """
+    return current_user

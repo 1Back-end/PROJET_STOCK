@@ -7,19 +7,20 @@ import uuid
 from sqlalchemy.orm import relationship
 
 
-class Category(Base):
-    __tablename__ = 'categories'
+class Customer(Base):
+    __tablename__ = 'customers'
 
     uuid = Column(String, primary_key=True, index=True, default=lambda: str(uuid.uuid4()))
-    name = Column(String, unique=True, nullable=False)
-    description = Column(String)
+    first_name = Column(String,nullable=False)
+    last_name = Column(String,nullable=False)
+    phone_number = Column(String,nullable=False,unique=True)
+    email = Column(String,nullable=False, unique=True)
+    address = Column(String,nullable=True)
     created_at = Column(DateTime, default=datetime.utcnow)
     updated_at = Column(DateTime, onupdate=datetime.utcnow)
     is_deleted = Column(Boolean, default=False)
-
-    added_by = Column(String,ForeignKey("users.uuid"),nullable=False)
+    added_by = Column(String,ForeignKey("users.uuid"),nullable=True)
     created_by = relationship("User",foreign_keys=[added_by])
-
+    
     def __repr__(self):
-        return f"<Category {self.uuid}>"
-
+        return f'<Customer {self.uuid}>'

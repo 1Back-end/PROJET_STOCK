@@ -56,6 +56,11 @@ class CRUDUser(CRUDBase[models.User,schemas.UserBase,schemas.UserCreate]):
         db.refresh(new_user)
         return new_user
     
+    @classmethod
+    def update_profil(cls, db: Session, *, obj_in: schemas.UserUpdate):
+        avatar_uuid=None
+        user = cls.get_user_by_uuid(db=db)
+    
 
     
         
