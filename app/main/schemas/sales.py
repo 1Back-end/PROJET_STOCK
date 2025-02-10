@@ -3,6 +3,7 @@ from typing import List, Optional
 
 from datetime import datetime,date
 
+from app.main.schemas.customer import CustomerSlim
 from app.main.schemas.products import ProductSlim
 from app.main.schemas.user import UserSlim
 
@@ -44,6 +45,7 @@ class SalesResponse(BaseModel):
     created_at: datetime
     product : ProductSlim
     created_by:UserSlim
+    customer:CustomerSlim
     model_config = ConfigDict(from_attributes=True)
 
 class SalesResponseList(BaseModel):

@@ -1,5 +1,5 @@
 from datetime import timedelta, datetime
-from typing import Any, Optional
+from typing import Any, List, Optional
 
 from fastapi import APIRouter, Depends, Body, HTTPException, Query
 from sqlalchemy.orm import Session
@@ -18,7 +18,7 @@ async def create(
     *,
     db: Session = Depends(get_db),
     obj_in:schemas.CategoryCreate,
-    current_user: models.User = Depends(TokenRequired())
+    current_user: models.User = Depends(TokenRequired(roles=["ADMIN","USER"]))
 ):
     user_uuid = current_user.uuid
     exist_name = crud.category.get_category_by_name(db=db,name=obj_in.name)
@@ -32,7 +32,7 @@ async def update(
     *,
     db: Session = Depends(get_db),
     obj_in: schemas.CategoryUpdate,
-    current_user: models.User = Depends(TokenRequired())
+    current_user: models.User = Depends(TokenRequired(roles=["ADMIN","USER"]))
 ):
    user_uuid = current_user.uuid
    crud.category.update_category(db=db,obj_in=obj_in,user_uuid=user_uuid)
@@ -44,7 +44,7 @@ async def delete(
     *,
     db: Session = Depends(get_db),
     obj_in: schemas.CategoryDelete,
-    current_user: models.User = Depends(TokenRequired())
+    current_user: models.User = Depends(TokenRequired(roles=["ADMIN"]))
 ):
     user_uuid = current_user.uuid
     crud.category.delete_category(db=db,obj_in=obj_in)
@@ -59,7 +59,7 @@ def get(
     order: str = Query("desc", enum=["asc", "desc"]),
     order_field: str = "date_added",  # Correction de "order_filed" à "order_field"
     keyword: Optional[str] = None,
-    current_user: models.User = Depends(TokenRequired())
+    current_user: models.User = Depends(TokenRequired(roles=["ADMIN","USER"]))
 ):
     return crud.category.get_many(
         db=db, 
@@ -69,3 +69,10 @@ def get(
         order_field=order_field,  # Utilisation du bon nom de variable
         keyword=keyword
     )
+@router.get("/list",response_model=List[schemas.CategoryDetails])
+async def get_list(
+    *,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(TokenRequired(roles=["ADMIN","USER"]))
+):
+    return crud.category.get_all_categories(db=db)

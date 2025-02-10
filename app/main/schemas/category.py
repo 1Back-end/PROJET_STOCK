@@ -11,6 +11,11 @@ class CategoryBase(BaseModel):
     description: Optional[str] = None
     model_config = ConfigDict(from_attributes=True)
 
+class CategoryDetails(BaseModel):
+    uuid: str
+    name: str
+    model_config = ConfigDict(from_attributes=True)
+
 class CategoryCreate(CategoryBase):
     pass
 

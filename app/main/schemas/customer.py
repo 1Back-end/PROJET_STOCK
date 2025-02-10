@@ -5,6 +5,12 @@ from datetime import datetime
 
 from app.main.schemas.user import UserSlim
 
+class CustomerSlim(BaseModel):
+    first_name:str
+    last_name:str
+    phone_number:str
+    model_config = ConfigDict(from_attributes=True)
+
 
 class CustomerBase(BaseModel):
     first_name:str

@@ -35,7 +35,7 @@
   color: #1F4283;
   font-weight: 600;
   font-style: italic;
-  font-size: 2.5rem;
+  font-size: 2rem;
 
 }
 .btn-xs {
@@ -66,7 +66,8 @@ p{
   line-height: 1.5;
 }
 textarea.form-control{
-  resize: none !important;;
+  resize: none !important;
+  height: 150px !important;
 }
 .btn-xs {
   padding: 0.25rem 0.5rem;
@@ -88,13 +89,23 @@ textarea.form-control{
 }
 input[type="text"], 
 input[type="email"],
-input[type="tel"] {
+input[type="tel"],
+input[type="number"],
+input[type="password"],
+input[type="date"],
+input[type="datetime-local"],
+input[type="month"],
+input[type="week"],
+input[type="time"],
+input[type="file"],
+textarea,
+select {
   font-size: 14px;
   color: #1F4283;
   padding: 15px;
 }
 
-select {
+.form-select option {
   font-size: 12px;
   cursor: pointer;
 }
@@ -111,4 +122,16 @@ textarea.form-control-lg {
   border-radius: 10px;
   -webkit-box-shadow: 0 0 28px rgba(0,0,0,.08);
   box-shadow: 0 0 28px rgba(0,0,0,.08);
+}
+.select-custom {
+  font-size: 12px;
+  font-family: "Rubik", system-ui;
+  cursor: pointer;
+  
+}
+
+.select-custom option {
+  font-size: 12px;
+  font-family: "Rubik", system-ui;
+  cursor: pointer;
 }

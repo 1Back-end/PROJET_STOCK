@@ -27,6 +27,10 @@ class CRUDCategory(CRUDBase[models.Category,schemas.CategoryCreate,schemas.Categ
         return db.query(models.Category).filter(models.Category.uuid == uuid,models.Category.is_deleted==False).first()
     
     @classmethod
+    def get_all_categories(cls,db:Session):
+        return db.query(models.Category).filter(models.Category.is_deleted==False).all()
+    
+    @classmethod
     def create_category(cls,db:Session,*,obj_in:schemas.CategoryCreate,user_uuid:str):
         new_category = models.Category(
             uuid=str(uuid.uuid4()),

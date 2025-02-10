@@ -20,7 +20,7 @@ async def create(
     *,
     db: Session = Depends(get_db),
     obj_in:schemas.SalesCreate,
-    current_user: models.User = Depends(TokenRequired()),
+    current_user: models.User = Depends(TokenRequired(roles=["ADMIN","USER"])),
 ):
     user_uuid = current_user.uuid
     crud.sales.create_sales(db=db,obj_in=obj_in,user_uuid=user_uuid)
@@ -32,7 +32,7 @@ async def read_sales_by_customer(
     *,
     db: Session = Depends(get_db),
     customer_uuid: str,
-    current_user: models.User = Depends(TokenRequired()),
+    current_user: models.User = Depends(TokenRequired(roles=["ADMIN","USER"])),
 ):
     return crud.sales.get_sales_by_customer(db=db, customer_uuid=customer_uuid)
 
@@ -41,7 +41,7 @@ async def update(
     *,
     db: Session = Depends(get_db),
     obj_in: schemas.SalesUpdate,
-    current_user: models.User = Depends(TokenRequired()),
+    current_user: models.User = Depends(TokenRequired(roles=["ADMIN","USER"])),
 ):
     user_uuid = current_user.uuid
     crud.sales.update_sales(db=db,obj_in=obj_in,user_uuid=user_uuid)
@@ -56,7 +56,7 @@ def get(
     order: str = Query("desc", enum=["asc", "desc"]),
     order_field: str = "date_added",  # Correction de "order_filed" à "order_field"
     keyword: Optional[str] = None,
-    current_user: models.User = Depends(TokenRequired())
+    current_user: models.User = Depends(TokenRequired(roles=["ADMIN","USER"]))
 ):
     return crud.sales.get_many(
         db=db, 
@@ -72,7 +72,7 @@ async def total_sales(
     *,
     db: Session = Depends(get_db),
     sales_date: date,
-    current_user: models.User = Depends(TokenRequired()),
+    current_user: models.User = Depends(TokenRequired(roles=["ADMIN","USER"])),
 ):
     total_sales = crud.sales.get_total_sales_by_day(db=db, sales_date=sales_date)
     return {"sales_date": sales_date, "total_price": f"{total_sales:,.0f} XAF"}
@@ -83,7 +83,7 @@ async def read_one(
     *,
     db: Session = Depends(get_db),
     uuid: str,
-    current_user: models.User = Depends(TokenRequired())
+    current_user: models.User = Depends(TokenRequired(roles=["ADMIN","USER"]))
 ):
     return crud.sales.get_sales_by_uuid(db=db, uuid=uuid)
 
@@ -92,7 +92,7 @@ async def delete(
     *,
     db: Session = Depends(get_db),
     obj_in: schemas.SalesDelete,
-    current_user: models.User = Depends(TokenRequired()),
+    current_user: models.User = Depends(TokenRequired(roles=["ADMIN"])),
 ):
     crud.sales.delete(db=db, obj_in=obj_in)
     return {"message": __(key="sales-deleted-successfully")}

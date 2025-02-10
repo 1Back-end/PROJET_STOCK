@@ -7,3 +7,4 @@ from .category import *
 from .products import *
 from .customer import *
 from .sales import *
+from .replenishment import *

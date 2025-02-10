@@ -26,7 +26,7 @@ const CategorieList = () => {
           },
           params: {
             page: page,
-            per_page: 5,
+            per_page: 10,
             order: 'desc',
             order_field: 'date_added',
           }
@@ -56,12 +56,37 @@ const CategorieList = () => {
     getAllCategories();
   }, [page]);
 
-  const handleDelete = (categoryId) => {
-    // Logique pour supprimer la catégorie
-    console.log('Suppression de la catégorie', categoryId);
-    // Après suppression, tu peux refaire un appel pour recharger les catégories
-    // setCategories(updatedCategories);
+  const handleDelete = async (categoryId) => {
+    const token = JSON.parse(localStorage.getItem('token'));
+    const accessToken = token ? token.access_token : null;
+  
+    if (!accessToken) {
+      toast.error("Vous devez être connecté pour effectuer cette action.");
+      return;
+    }
+  
+    try {
+      // Prépare les données à envoyer (ici, un objet avec le UUID de la catégorie)
+      const data = { uuid: categoryId };
+  
+      const response = await axios.delete(`http://127.0.0.1:8000/api/v1/delete`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        data: data,  // Envoie le payload dans le corps de la requête
+      });
+  
+      toast.success("Catégorie supprimée avec succès.");
+      
+      // Mettre à jour la liste des catégories après suppression
+      setCategories(categories.filter(category => category.uuid !== categoryId));
+  
+    } catch (error) {
+      toast.error("Erreur lors de la suppression:", error.response?.data || error.message);
+      toast.error("Échec de la suppression de la catégorie.");
+    }
   };
+  
 
   return (
     <>

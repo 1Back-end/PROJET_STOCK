@@ -6,6 +6,8 @@ from .products_controller import router as product
 from .storage_controller import router as storage
 from .customer_controller import router as customer
 from .sales_controller import router as sales
+from .replenishment_controller import router as replenishment
+
 api_router = APIRouter()
 
 api_router.include_router(migration)
@@ -15,3 +17,4 @@ api_router.include_router(product)
 api_router.include_router(storage)
 api_router.include_router(customer)
 api_router.include_router(sales)
+api_router.include_router(replenishment)

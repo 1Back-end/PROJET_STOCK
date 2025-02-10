@@ -15,7 +15,7 @@ def create(
     *,
     db: Session = Depends(get_db),
     obj_in:schemas.CustomerCreate,
-    current_user: models.User = Depends(TokenRequired())
+    current_user: models.User = Depends(TokenRequired(roles=["ADMIN","USER"]))
 ):
     exist_phone = crud.customer.get_customer_by_phone_number(db=db,phone_number=obj_in.phone_number)
     if exist_phone is not None:
@@ -32,7 +32,7 @@ async def update(
     *,
     db: Session = Depends(get_db),
     user_in: schemas.CustomerUpdate,
-    current_user: models.User = Depends(TokenRequired())
+    current_user: models.User = Depends(TokenRequired(roles=["ADMIN","USER"]))
 ):
    user_uuid = current_user.uuid
    crud.customer.update_customer(db=db,user_in=user_in,user_uuid=user_uuid)
@@ -44,7 +44,7 @@ async def delete(
     *,
     db: Session = Depends(get_db),
     obj_in: schemas.CustomerDelete,
-    current_user: models.User = Depends(TokenRequired())
+    current_user: models.User = Depends(TokenRequired(roles=["ADMIN"]))
 ):
     crud.customer.delete_customer(db=db,obj_in=obj_in)
     return schemas.Msg(message=__(key='customer-deleted-successfully'))
@@ -54,7 +54,7 @@ async def read(
     *,
     db: Session = Depends(get_db),
     uuid: str,
-    current_user: models.User = Depends(TokenRequired())
+    current_user: models.User = Depends(TokenRequired(roles=["ADMIN","USER"]))
 ):
     return crud.customer.get_customer_by_uuid(db=db, uuid=uuid)
 
@@ -67,7 +67,7 @@ def get(
     order: str = Query("desc", enum=["asc", "desc"]),
     order_field: str = "date_added",  # Correction de "order_filed" à "order_field"
     keyword: Optional[str] = None,
-    current_user: models.User = Depends(TokenRequired())
+    current_user: models.User = Depends(TokenRequired(roles=["ADMIN","USER"]))
 ):
     return crud.customer.get_many(
         db=db, 

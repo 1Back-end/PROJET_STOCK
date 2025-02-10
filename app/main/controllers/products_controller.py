@@ -18,7 +18,7 @@ async def create(
     *,
     db: Session = Depends(get_db),
     obj_in:schemas.ProductCreate,
-    current_user: models.User = Depends(TokenRequired())
+    current_user: models.User = Depends(TokenRequired(roles=["ADMIN","USER"]))
 ):
     user_uuid = current_user.uuid
     return crud.product.create_product(db=db,obj_in=obj_in,user_uuid=user_uuid)
@@ -28,7 +28,7 @@ async def update(
     *,
     db: Session = Depends(get_db),
     obj_in: schemas.ProductUpdate,
-    current_user: models.User = Depends(TokenRequired())
+    current_user: models.User = Depends(TokenRequired(roles=["ADMIN","USER"]))
 ):
    user_uuid = current_user.uuid
    return crud.product.update_product(db=db,obj_in=obj_in,user_uuid=user_uuid)
@@ -38,7 +38,7 @@ async def delete(
     *,
     db: Session = Depends(get_db),
     obj_in: schemas.ProductDelete,
-    current_user: models.User = Depends(TokenRequired())
+    current_user: models.User = Depends(TokenRequired(roles=["ADMIN"]))
 ):
     crud.product.delete_product(db=db,obj_in=obj_in)
     return schemas.Msg(message=__(key="product-deleted-successfully."))
@@ -52,7 +52,7 @@ def get(
     order: str = Query("desc", enum=["asc", "desc"]),
     order_field: str = "date_added",  # Correction de "order_filed" à "order_field"
     keyword: Optional[str] = None,
-    current_user: models.User = Depends(TokenRequired())
+    current_user: models.User = Depends(TokenRequired(roles=["ADMIN","USER"]))
 ):
     return crud.product.get_many(
         db=db, 
@@ -68,7 +68,7 @@ async def read(
     *,
     db: Session = Depends(get_db),
     uuid: str,
-    current_user: models.User = Depends(TokenRequired())
+    current_user: models.User = Depends(TokenRequired(roles=["ADMIN","USER"]))
 ):
     return crud.product.get_product_by_uuid(db=db, uuid=uuid)
 

@@ -43,6 +43,16 @@ class TokenRequired(HTTPBearer):
             current_user = crud.user.get_user_by_uuid(db=db, uuid=token_data["sub"])
             if not current_user:
                 raise HTTPException(status_code=403, detail=__("dependencies-token-invalid"))
+            
+            if not current_user.is_active:
+                raise HTTPException(status_code=405, detail="User is not active")
+
+            if current_user.is_deleted:
+                raise HTTPException(status_code=405, detail="User is deleted")
+
+            # Vérifie si le rôle de l'utilisateur fait partie des rôles autorisés
+            if self.roles and current_user.role not in self.roles:
+                raise HTTPException(status_code=403, detail="Insufficient permissions")
 
             """
             if required_roles:

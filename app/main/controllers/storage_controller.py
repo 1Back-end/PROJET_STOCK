@@ -26,7 +26,7 @@ async def upload_file(
         *,
         db: Session = Depends(get_db),
         file: UploadFile = File(...),
-        current_user: models.User = Depends(TokenRequired())
+        current_user: models.User = Depends(TokenRequired(roles=["ADMIN","USER"]))
         
 ):
     """
@@ -73,7 +73,7 @@ def get_file(
     *,
     public_id: str, 
     db: Session = Depends(get_db),
-    current_user: models.User = Depends(TokenRequired())
+    current_user: models.User = Depends(TokenRequired(roles=["ADMIN","USER"]))
     # current_user: models.User = Depends(dependencies.TokenRequired())
 
     ):
